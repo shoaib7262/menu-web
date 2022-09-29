@@ -19,6 +19,7 @@ const addItems = () => {
         price: addPrice,
         discription: addDiscription,
         type: addType,
+        like: false
 
     })
 
@@ -45,15 +46,15 @@ const showItems = () => {
 
     let showInHtml = "";
     myFoods.map((food, index) => {
-
+console.log(myFoods)
 
         showInHtml += `
-        <div style="display:flex;justify-content-center;align-item-center;margin:4px" >
+        <div style="display:flex;justify-content-center;align-item-center;margin:4px">
         <img style="border:4px solid orange; border-radius:10px;" width="200" height="auto" id="myPicture" src="${displayImg()}" alt="some image">
         <div class="card mx-2"  style="width: 18rem;background-color:rgb(199, 201, 214);border:0px">
             <div class="card-body">
 
-                <div class="border-bottom">
+                <div class="border-bottom" >
                 
                     <h6 style="font-weight:600" class="card-title d-inline" id="card-title">${food.title} </h6>
                     <h6 style="color:orange;font-weight:600" class="price float-right" id="output-price">${food.price} </h6>
@@ -63,10 +64,10 @@ const showItems = () => {
                
                 <p style="color:rgb(35, 46, 116)" class="card-text" id="card-discription">${food.discription} </p>
                 <div style="display:flex;justify-content-between">
-                   <div> <p href="#" class="type" id="output-type">${food.type}</p></div>
+                   <div> <p href="#" class="type" id="output-type" >${food.type}</p></div>
                       <div style="display:flex; justify-content:center">
                         <div>
-                          <button style="position:relative; background:transparent;border:none;outline:none;color:grey;" id="heartIcon" ><i class="fa-regular fa-heart" ></i>
+                          <button style="position:relative; background:transparent;border:none;outline:none;color:grey;" class="food.like  ? "bgRed" : "bg" "    id="${index}" onclick="react(id)" ><i class="fa-regular fa-heart" ></i>
 
                         <input  type="number" id="inputOne" value="0" style="border:none;background:none;outline:none;pointer-events:none;position:absolute ;">
                         
@@ -113,3 +114,19 @@ const displayImg = () => {
 // const hoverPoiter = ()=>{
 //     document.getElementById("heartIcon").style.cursor = "pointer";
 // }
+function react(i){
+    let myFoods = JSON.parse(localStorage.getItem("foods"));
+    let otherFoods  = myFoods.filter((a,index)=> index == i)
+
+    let filtered = myFoods.filter((a,index)=> index == i)
+   filtered[0].like = true
+   otherFoods.push(filtered)
+//    console.log(filtered
+// let newFoods =   myFoods.splice(i,1,filtered)
+// console.log(typeof newFoods)    
+// localStorage.clear()
+localStorage.setItem("foods",JSON.stringify(otherFoods))
+console.log(myFoods)
+}
+let fruit  = localStorage.getItem('foods')
+console.log(fruit)
